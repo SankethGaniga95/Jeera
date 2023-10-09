@@ -1,0 +1,10 @@
+<div *ngFor="let task of tasks">
+    <h2>{{ task.name }}</h2>
+    <p>{{ task.description }}</p>
+    <button (click)="deleteTask(task.id)">Delete</button>
+  </div>
+
+  <div *ngIf="tasks.length === 0">
+    <p>No tasks available.</p>
+  </div>
+
