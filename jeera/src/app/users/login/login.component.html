@@ -1,0 +1,109 @@
+<style>
+
+    .back{
+        background-color: rgb(241, 241, 241);
+    }
+    .register{
+        width:40%;
+        height: 90vh; 
+        padding-top: 40px;  
+        margin-left: 400px;
+    }
+    form{
+        width:60%;
+        margin-left: 20%;
+        margin-top: 10%;
+        background-color: white;
+        padding: 20px;
+        border-radius: 6px;
+    
+    }
+    .form-row{
+        margin-bottom: 3px;
+        display: block;
+        padding-left: 30px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px; 
+      font-size: 16px;
+    
+    }
+    
+    input[type="text"]{
+      width: 80%;
+      padding: 10px;
+      margin-top: 3px; 
+      border:1px solid rgb(216, 215, 215);
+      border-radius: 6px;
+       } 
+    select{
+      width: 80%;
+      padding: 10px;
+      margin-top: 3px; 
+      border:1px solid rgb(216, 215, 215);
+      border-radius: 6px;
+    }
+    option{
+        font-size: 14px;
+    }
+    p{
+        font-size: 16px;
+        margin-left: 50px;
+    }
+    
+    
+    button{
+      width: 88%;
+      padding: 10px;
+      margin-top: 10px; 
+      border:1px solid rgb(216, 215, 215);
+      border-radius: 6px;
+      background-color: rgb(40, 125, 253);
+      color: white;
+      font-size: 18px;
+       }
+    
+    .loginlink{
+        color: rgb(40, 125, 253);
+        font-size: 16px;
+    
+    }
+    .title{
+        margin-left: 120px;
+        color: rgb(38, 35, 250);
+        font-size: 20px;
+        font-weight: 500;
+    }
+    </style>
+
+<div class="back">
+    <div class="register">
+        <form>
+        <p class="title">Login!</p>
+        <div class="form-row">
+            <label >Email</label>
+            <input type="text" name="email" [(ngModel)]="logindata.email">
+        </div>
+        <div class="form-row">
+            <label >Role</label>    
+            <select name="role" [(ngModel)]="logindata.role">
+                <option value="Admin">Admin</option>
+                <option value="Project Manager">Project Manager</option>
+                <option value="Team Member">Team Member</option>
+            </select>
+        </div>  
+        <div class="form-row">
+            <label >Password</label>
+            <input type="text"name="password" [(ngModel)]="logindata.password">
+        </div> 
+        <div class="form-row">
+            <button (click)="RegisterUser()">Login</button>
+        </div>
+        <div class="form-row">
+            <p>Haven't Register Yet? <span class="loginlink" [routerLink]="['/']">Sign Up</span></p>
+
+        </div>
+    </form>
+</div>
+</div>

@@ -1,0 +1,45 @@
+<style>
+.app-project-layout{
+    display: flex;
+}
+.project-sidebar{
+    border: 2px solid rgb(219, 217, 217);
+    width:20%;
+    height: 100vh;
+    margin-left: -10px;
+    padding-top: 10px;
+    
+}
+.project-sidebar ul{
+    list-style-type: none;
+}
+.project-sidebar li{
+    margin-top: 30px;
+}
+.project-sidebar li a{
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 600;
+}
+.components-display{
+    width:80%
+}
+
+</style>
+
+<div class="app-project-layout">
+    <div class="project-sidebar">
+        <ul>
+            <li><a [routerLink]="['/project-manager/dashboard']">Dashboard</a></li>
+            <li><a [routerLink]="['/project-manager/projectmanagerprojects']">Projects</a></li>
+            <li><a [routerLink]="['/project-manager/projectmanagertask']">Task</a></li>
+            <li><a [routerLink]="['/project-manager/projectmanagerteam']">Team</a></li>
+            <li><a [routerLink]="['/project-manager/projectmanageranalytics']">Analytics</a></li>
+            <li><a [routerLink]="['/project-manager/projectmanagernotifications']">Notifications</a></li>
+        </ul>
+    </div>
+    <div class="components-display">
+        <router-outlet></router-outlet>
+    </div>
+    
+</div>

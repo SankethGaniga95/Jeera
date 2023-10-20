@@ -1,0 +1,238 @@
+<style>
+ .Create-project{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* border: 2px solid black; */
+        width: 97%;
+    }
+    .Create-project button{
+        /* margin-right: 50px; */
+        width:150px;
+        height:50px;
+        background-color: rgb(0, 174, 255);
+        border-radius: 10px;
+        border: none;
+        box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24); 
+        cursor: pointer; 
+        outline: none; 
+        transition: 0.2s all;
+        font-size: 17px;
+        color: white;
+        
+    }
+    .Create-project button:active { 
+            transform: scale(0.98); 
+            /* Scaling button to 0.98 to its original size */ 
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24); 
+            /* Lowering the shadow */ 
+        }
+
+    .Create-project h1{
+        margin-left: 30px;
+    }
+
+
+    label {
+  display: block;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  color: purple;
+}
+
+input[type="text"],
+input[type="date"] {
+  width: 80%;
+  padding: 10px;
+  margin-top: 3px; /* Adjust as needed */
+  border:1px solid rgb(216, 215, 215);
+}
+textarea{
+  width: 80%;
+  padding: 10px;
+  margin-top: 3px; /* Adjust as needed */
+  border:1px solid rgb(216, 215, 215);
+
+}
+
+.form-row button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 86%;
+  margin-top: 10px;
+}
+.form{
+    margin-left: 25%;
+    border: 2px solid #007bff;
+    width:27%;
+    border-radius: 10px;
+    display: block; /* Initially hide the form */
+  position: fixed;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+.form.active {
+  display: block; /* Show the form when active */
+}
+.form-row h3{
+    color: #007bff;
+    font-size: 18px;
+}
+
+
+.kanban-board {
+    display: flex;
+}
+
+.column {
+    flex:1;
+    margin: 20px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.column h2 {
+    text-align: center;
+}
+
+.card {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 30px 20px;
+    cursor: pointer;
+}
+.todo{
+    color:red
+}
+.InProgress{
+    color: orange;
+}
+.Done{
+    color: green;
+}
+.high-priority {
+  color: red;
+  font-weight: bold;
+}
+.medium-priority{
+    color: rgb(255, 174, 0);
+    font-weight: bold;
+}
+
+.low-priority {
+  color: green;
+  font-weight: bold;
+}
+
+
+</style>
+<div class="top">
+    <div class="Create-project">
+        <h1>Manage Task</h1>
+        <button (click)="showTaskForm=!showTaskForm">+ Create Task</button>
+    </div>
+       
+    <form  class="form" *ngIf="showTaskForm">
+        <div class="form-row">
+            <h3>Create a New Task</h3>
+
+        </div>
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input type="text" name="title" placeholder="Enter Task Name" [(ngModel)]="newTask.title">
+        </div>
+        <div class="form-row">
+          <label for="description">Description</label>
+            <textarea name="" id="" cols="30" name="description" rows="10"placeholder="Enter Task Description" [(ngModel)]="newTask.description"></textarea>
+        </div>
+        <div class="form-row" >
+          <label>Set Deadline</label>
+          <input type="date" id="due_date" name="due_date" [(ngModel)]="newTask.due_date">
+        </div>
+        <div class="form-row">
+          <label for="priority">Priority</label>
+          <select name="priority" [(ngModel)]="newTask.priority" >
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+
+        </div>
+        <div class="form-row">
+            <label for="status">Status</label>
+            <select id="" name="status" [(ngModel)]="newTask.status">
+                <option value="To Do">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
+            </select>
+          </div>
+        <div class="form-row">
+          <label for="managerId">Select Project</label>
+          <select id="managerId" name="project_manager_id" [(ngModel)]="newTask.project_id">
+            <option *ngFor="let manager of projects" [value]="manager._id">{{ manager.name }}</option>
+            </select>
+        </div>
+        <div class="form-row">
+          <label for="assignmember">Assign Member</label>
+          <select id="assignmember" name="assignedTeamMembers" [(ngModel)]="newTask.assignedTeamMembers">
+            <option *ngFor="let team of TeamMembers" [value]="team._id">{{ team.name }}</option>
+            <option >Self</option>
+            </select>
+        </div>
+        <div class="form-row">
+          <!-- <label for="role">Role</label> -->
+          <input type="hidden" id="role" value="Project Manager" name="role"[(ngModel)]="newTask.role">
+        </div>
+        <div class="form-row">
+          <button type="submit" (click)="createTask()">Submit</button>
+        </div>
+      </form>
+      
+
+
+</div>
+
+<div class="kanban-board">
+    <div class="column" (dragover)="onDragover($event)" (drop)="onDrop($event, 'To Do')">
+        <h2 class="todo">To Do</h2>
+        <div class="card" draggable="true" *ngFor="let item of getFilteredTasks('To Do')" (dragstart)="dragStart(item)">
+    <p>Id: {{ item.id }}<span [ngClass]="getPriorityClass(item.priority)"> {{item.priority}}</span></p> 
+    <h4>Task Title: {{item.title}}</h4>
+            <p>Description: {{item.description}}</p>
+            <p>Project Id: {{item.project_id}}</p>
+            <p>Deadline: {{item.due_date}}</p>
+       </div>
+    </div>
+    <div class="column" (dragover)="onDragover($event)"  (drop)="onDrop($event, 'In Progress')">
+        <h2 class="InProgress">In Progress</h2>
+        <div class="card" draggable="true" *ngFor="let item of getFilteredTasks('In Progress')" (dragstart)="dragStart(item)">
+            <p>Id: {{ item.id }}<span [ngClass]="getPriorityClass(item.priority)"> {{item.priority}}</span></p> 
+            <h4>Task Title: {{item.title}}</h4>
+            <p>Description: {{item.description}}</p>
+            <p>Project Id: {{item.project_id}}</p>
+            <p>Deadline: {{item.due_date}}</p>
+        </div>
+    </div>
+    <div class="column" (dragover)="onDragover($event)"  (drop)="onDrop($event, 'Done')">
+        <h2 class="Done">Done</h2>
+        <div class="card" draggable="true" *ngFor="let item of getFilteredTasks('Done')" (dragstart)="dragStart(item)"> <p>Id: {{ item.id }}<span [ngClass]="getPriorityClass(item.priority)"> {{item.priority}}</span></p> 
+            <h4>Task Title: {{item.title}}</h4>
+            <p>Description: {{item.description}}</p>
+            <p>Project Id: {{item.project_id}}</p>
+            <p>Deadline: {{item.due_date}}</p>
+        </div>
+    </div>
+</div>

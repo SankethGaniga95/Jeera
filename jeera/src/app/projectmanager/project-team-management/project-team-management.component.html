@@ -1,0 +1,75 @@
+<div>
+    <h2>Create Team</h2>
+    <label for="">Team Name</label>
+    <input type="text" [(ngModel)]="team_name" name="team_name">
+    <button (click)="createNewTeam()">Create Team</button>
+</div>
+
+<div>
+    <h2>Available Teams</h2>
+    <table>
+        <thead>
+            <th>Sr.No</th>
+            <th>Team</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let team of teams">
+                <td>{{team._id}}</td>
+                <td>{{team.team_name}}</td>
+                <!-- <td><button (click)="editTeams(team.id)">Edit</button></td> -->
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <h2>Available Team Members</h2>
+    <table>
+        <thead>
+            <th>User Id</th>
+            <th>Team</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let team of teamMembers">
+                <td>{{team._id}}</td>
+                <td>{{team.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h2>Team Fixtures</h2>
+    <table>
+        <thead>
+            <th>Team Id</th>
+            <th>User Id</th>
+            <th>Team Member</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let team of teamFixtures">
+                <td>{{team.team_id}}</td>
+                <td>{{team.user_id}}</td>
+                <td>{{team.user_data.name}}</td>
+                <td><button (click)="getTeamDetails(team.team_id)">Team Details</button></td>
+            </tr>
+        </tbody>
+    </table>
+<div *ngIf="selectedTeams">
+    <div *ngFor="let user of selectedTeams">
+        <p>{{user.name}}</p>
+    </div>
+
+</div>
+
+
+<div>
+    <h2>Add Team Members</h2>
+    <form>
+
+        <label for="">Team ID</label>
+        <input type="text" name="team_id" [(ngModel)]="addTeam.team_name">
+        <label for="">Team Member ID</label>
+        <input type="text" name="user_id" [(ngModel)]="addTeam.user_name">
+        <button type="submit"(click)="addTeammembers()">Submit</button>
+    </form>
+    </div>

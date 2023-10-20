@@ -1,0 +1,261 @@
+<style>
+    .project-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .project-table th {
+        /* background-color: #6402be; */
+        color: gray;
+        padding: 10px;
+        border: 1px solid #e7e6e6;
+
+    }
+
+    .project-table td {
+        border: 1px solid #e7e6e6;
+        padding: 10px;
+        text-align: center;
+        
+        font-weight: 500
+        ;
+    }
+    .Create-project{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* border: 2px solid black; */
+        width: 97%;
+    }
+    .Create-project button{
+        /* margin-right: 50px; */
+        width:150px;
+        height:50px;
+        background-color: rgb(0, 174, 255);
+        border-radius: 10px;
+        border: none;
+        box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24); 
+        cursor: pointer; 
+        outline: none; 
+        transition: 0.2s all;
+        font-size: 17px;
+        color: white;
+        
+    }
+    .Create-project button:active { 
+            transform: scale(0.98); 
+            /* Scaling button to 0.98 to its original size */ 
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24); 
+            /* Lowering the shadow */ 
+        }
+
+    .Create-project h1{
+        margin-left: 30px;
+        width:130px;
+        height:50px
+    }
+    tr:nth-child(even) { 
+            background-color: rgb(216, 229, 230);
+        }
+        .form-row {
+  margin-bottom: 15px;
+  margin-left: 10%; /* Add margin between rows */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px; /* Add margin between label and input */
+  color: purple;
+}
+
+input[type="text"],
+input[type="date"] {
+  width: 80%;
+  padding: 10px;
+  margin-top: 3px; /* Adjust as needed */
+  border:1px solid rgb(216, 215, 215);
+}
+textarea{
+  width: 80%;
+  padding: 10px;
+  margin-top: 3px; /* Adjust as needed */
+  border:1px solid rgb(216, 215, 215);
+
+}
+
+.form-row button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 86%;
+}
+.form{
+    margin-left: 25%;
+    border: 2px solid #007bff;
+    width:40%;
+    border-radius: 10px;
+    display: block; /* Initially hide the form */
+  position: fixed;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+.form.active {
+  display: block; /* Show the form when active */
+}
+.form-row h3{
+    color: #007bff;
+    font-size: 18px;
+}
+.form-row:nth-child(5){
+   display: flex;
+   gap: 8px;
+
+}
+.form-row:nth-child(5) input{
+    width:28%
+
+}
+        
+    
+</style>
+
+
+
+
+<div class="top">
+    <div class="Create-project">
+        <h1>Projects</h1>
+        <button (click)="showProjectForm=!showProjectForm">+ Create Project</button>
+    </div>
+
+    <!-- <form *ngIf="showProjectForm">
+        <label>Name</label>
+        <input type="text" placeholder="Enter Project Name">
+        <label>Description</label>
+        <input type="text" placeholder="Enter Project Description">
+        <label>Start Date</label>
+        <input type="date">
+        <label>End Date</label>
+        <input type="date" >
+        <label>Project Manager Id</label>
+        <input type="text">
+        <label>Role</label>
+        <input type="text">
+        <button>Submit</button>
+
+    </form> -->
+     
+    <form  class="form" *ngIf="showProjectForm">
+        <div class="form-row">
+            <h3>Create a New Project</h3>
+
+        </div>
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input type="text" name="name" placeholder="Enter Project Name" [(ngModel)]="newProject.name">
+        </div>
+        <div class="form-row">
+          <label for="description">Description</label>
+            <textarea name="" id="" cols="30" name="description" rows="10"placeholder="Enter Project Description" [(ngModel)]="newProject.description"></textarea>
+        </div>
+        <div class="form-row" >
+          <label>Set Deadline</label>
+        </div>
+        <div class="form-row">
+            <label for="startDate">From</label>
+          <input type="date" id="startDate" name="start_date" [(ngModel)]="newProject.start_date">
+          <label for="endDate">to</label>
+          <input type="date" id="endDate" name="end_date" [(ngModel)]="newProject.end_date">
+
+        </div>
+        <div class="form-row" *ngIf="projectManagers && projectManagers.length">
+          <label for="managerId">Project Manager Id</label>
+          <select id="managerId" name="project_manager_id" [(ngModel)]="newProject.project_manager_id">
+          <option *ngFor="let manager of projectManagers" [value]="manager._id">{{ manager.name }}</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <!-- <label for="role">Role</label> -->
+          <input type="hidden" id="role" value="Project Manager" name="role"[(ngModel)]="newProject.role">
+        </div>
+        <div class="form-row">
+          <button type="submit" (click)="createProject()">Submit</button>
+        </div>
+      </form>
+      
+
+
+</div>
+<div >
+    <table class="project-table">
+        <thead>
+            <th>Project ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </thead>
+        <tr *ngFor="let project of projects" >
+            <td>{{project.id}}</td>
+            <td>{{ project.name }}</td>
+            <td>{{ project.description }}</td>
+            <td>{{project.start_date}}</td>
+            <td>{{project.end_date}}</td>
+            <td><button (click)="editProject(project)">Edit</button></td>
+            <td><button (click)="deleteProject(project._id)">Delete</button></td>
+        </tr>
+    </table>
+  </div>
+
+
+  <div>
+    <form (ngSubmit)="updateProject()" *ngIf="editIsTrue" #editForm="ngForm">
+        <label for="name">Project Name:</label>
+        <input type="text" id="name" [(ngModel)]="projectedit.name" name="name">
+        <textarea name="" id="" cols="30" name="description" rows="10"placeholder="Enter Project Description" [(ngModel)]="projectedit.description"></textarea>
+        <input type="date" id="startDate" name="start_date" [(ngModel)]="projectedit.start_date">
+        <input type="date" id="endDate" name="end_date" [(ngModel)]="projectedit.end_date">
+        <input type="text" id="managerId" placeholder="Enter Your Id" name="project_manager_id" [(ngModel)]="projectedit.project_manager_id">
+        <input type="hidden" id="role" value="Project Manager" name="role"[(ngModel)]="projectedit.role">
+      
+        <button type="submit">Update</button>
+      </form>
+  </div>
+
+  <div >
+    <table class="project-table">
+        <thead>
+            <th>Project ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Completed</th>
+        </thead>
+        <tr *ngFor="let project of projectsusers" >
+            <td>{{project.id}}</td>
+            <td>{{ project.name }}</td>
+            <td>{{ project.description }}</td>
+            <td>{{project.start_date}}</td>
+            <td>{{project.end_date}}</td>
+            <td><select name="" id="">
+              <option value="">Todo</option>
+              <option value="">Pending</option>
+              <option value="">Done</option>
+            </select></td>
+            <td><button>Submit Report</button></td>
+        </tr>
+    </table>
+  </div>
