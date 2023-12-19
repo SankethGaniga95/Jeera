@@ -60,6 +60,16 @@
   .content {
     margin-top: 62px;
   }
+  .login{
+    width:100px;
+    padding: 10px 15px 10px 15px;
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 550;
+    color: white;
+    background-color: rgb(40, 125, 253);
+  }
   /* Responsive Styles */
   @media screen and (max-width: 767px) {
     .card-container > *:not(.circle-link) ,
@@ -100,11 +110,18 @@
   
   <span>Jeera</span>
     <div class="spacer"></div>
-    <button>
-      <a aria-label="" target="" rel="noopener" href=""  [routerLink]="['/login']" title="">
+    <!-- <a aria-label="" target="" rel="noopener" href=""  [routerLink]="['/login']" title="">
+        <button>
         Login
+      </button>
+      </a> -->
+      <a *ngIf="!isLoggedIn()" [routerLink]="['/login']" title="Login">
+        <button class="login">Login</button>
       </a>
-    </button>
+      <a *ngIf="isLoggedIn()" (click)="logout()" title="Log Out">
+        <button class="login">Login</button>
+      </a>
+     
 </div>
 
 <div class="content" role="main">

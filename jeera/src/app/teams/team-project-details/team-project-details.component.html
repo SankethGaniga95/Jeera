@@ -1,1 +1,23 @@
 <p>team-project-details works!</p>
+
+ <div >
+    <table class="project-table">
+        <thead>
+            <th>Project ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Project Manager</th>
+        </thead>
+        <tr *ngFor="let project of assignedProjects" >
+            <td>{{project.project_id._id}}</td>
+            <td>{{ project.project_id.name }}</td>
+            <td>{{ project.project_id.description }}</td>
+            <td>{{project.project_id.start_date}}</td>
+            <td>{{project.project_id.end_date}}</td>
+            <td>{{project.project_id.project_manager_id}}</td>
+            
+        </tr>
+    </table>
+  </div> 

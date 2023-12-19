@@ -8,7 +8,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent {
   logindata:any={}
-  private userId:any=""
+  
 
   // constructor(private login:LoginService){}
 
@@ -33,17 +33,19 @@ export class LoginComponent {
       (response) => {
         this.login.handleSuccessfulLogin(response);
         alert('Login Successfully');
-        console.log(response)
-        this.userId=response.user._id
-        console.log(this.userId)
+       
+        this.login.saveID(response.user._id)
+        this.login.setLoggedIn(true)
+
+
+         
       },
       (error) => {
         console.log(error);
       }
     );
   }
-  getUserId(): any {
-    return this.userId;
-  }
+
+  
 
 }

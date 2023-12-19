@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectmanagerTaskService } from 'src/app/services/projectmanager/projectmanager-task.service';
 import { ProjectService } from 'src/app/services/projectmanager/projectmanager-projects.service';
 import { RegisterService } from 'src/app/services/register.service';
+import { LoginService } from 'src/app/services/login.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class ProjectTaskManagementComponent {
   newTask: any = {};
   projects: any[]=[];
   TeamMembers:any[]=[]
-  constructor(private taskService: ProjectmanagerTaskService, private userService:ProjectService, private user:RegisterService) {}
+  userId = this.saveId.getUserId();
+  constructor(private taskService: ProjectmanagerTaskService, private userService:ProjectService, private user:RegisterService, private saveId:LoginService) {}
   
   // userId = this.login.getUserId();
   ngOnInit(): void {
@@ -47,8 +49,8 @@ export class ProjectTaskManagementComponent {
     this.taskService.createTasks(this.newTask).subscribe(
       (resonse)=>{
         this.showTaskForm=false
-        this.newTask={}
         console.log(this.newTask)
+        this.newTask={}
       },
     (error)=>{
       console.log("Task creation error:",error)
@@ -91,7 +93,7 @@ export class ProjectTaskManagementComponent {
   // }
   
   updateTaskStatus(taskId: number, newStatus: string) {
-    const existingTask = this.tasks.find(task => task.id === taskId);
+    const existingTask = this.tasks.find(task => task._id === taskId);
   
     if (existingTask) {
       existingTask.status = newStatus;
@@ -160,10 +162,10 @@ export class ProjectTaskManagementComponent {
     console.log('OnDrop');
     event.preventDefault();
     if (this.currentItem) {
-      const record = this.tasks.find((el) => el.id == this.currentItem.id);
+      const record = this.tasks.find((el) => el._id == this.currentItem._id);
       if (record) {
         record.status = status;
-        this.updateTaskStatus(this.currentItem.id, status);
+        this.updateTaskStatus(this.currentItem._id, status);
       }
       this.currentItem = null;
     }

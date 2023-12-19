@@ -4,10 +4,11 @@
         justify-content: space-between;
         align-items: center;
         /* border: 2px solid black; */
-        width: 97%;
+        width: 100%;
+        background-color: rgba(137,192,255,255);
     }
     .Create-project button{
-        /* margin-right: 50px; */
+        margin-right: 50px;
         width:150px;
         height:50px;
         background-color: rgb(0, 174, 255);
@@ -91,6 +92,8 @@ textarea{
 
 .kanban-board {
     display: flex;
+    background-color: rgba(137,192,255,255);
+    height: 100vh;
 }
 
 .column {
@@ -189,7 +192,7 @@ textarea{
           <label for="assignmember">Assign Member</label>
           <select id="assignmember" name="assignedTeamMembers" [(ngModel)]="newTask.assignedTeamMembers">
             <option *ngFor="let team of TeamMembers" [value]="team._id">{{ team.name }}</option>
-            <option >Self</option>
+            <option [value]="userId">Self</option>
             </select>
         </div>
         <div class="form-row">

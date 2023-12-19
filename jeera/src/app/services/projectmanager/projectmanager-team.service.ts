@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProjectmanagerTeamService {
 
-  private apiUrl = 'http://localhost:8080/team'; // Replace with your API URL
+  private apiUrl = 'https://jeerabackened.onrender.com/team'; // Replace with your API URL
 
   constructor(private http: HttpClient) {}
 
@@ -31,6 +31,6 @@ export class ProjectmanagerTeamService {
 
   }
   addTeamMembers(addTeam:any):Observable<any>{
-    return this.http.post(`${this.apiUrl}/team_members`,addTeam)
+    return this.http.post(`http://localhost:8080/team/team_members`,addTeam)
   }
 }

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class RegisterService {
 
-  private apiBaseUrl = 'http://localhost:8080/user';
+  private apiBaseUrl = 'https://jeerabackened.onrender.com/user';
 
   constructor(private http:HttpClient) { }
 

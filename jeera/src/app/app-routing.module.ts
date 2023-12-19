@@ -30,20 +30,19 @@ const routes: Routes = [
     path: 'project-manager',
     component:  ProjectLayoutComponent,
     children: [
-      { path: 'dashboard', component: ProjectDashboardComponent },
+      { path: '', component: ProjectDashboardComponent },
       { path: 'projectmanagerprojects', component: ProjectManagementComponent },
       { path: 'projectmanagertask', component: ProjectTaskManagementComponent },
       { path: 'projectmanagerteam', component: ProjectTeamManagementComponent },
       { path: 'projectmanageranalytics', component: ProjectAnalyticsComponent },
       { path: 'projectmanagernotifications', component: ProjectNotificationsComponent },
-      // Other Project Manager routes
     ],
   },
   {
     path: 'team-member',
     component: TeamLayoutComponent,
     children: [
-      { path: 'dashboard', component: TeamDashboardComponent },
+      { path: '', component: TeamDashboardComponent },
       { path: 'teamprojects', component: TeamProjectDetailsComponent },
       { path: 'teamtask', component: TeamTaskManagementComponent },
       { path: 'teamteam', component: TeamTeamDetailsComponent },
@@ -55,7 +54,7 @@ const routes: Routes = [
     path: 'admin',
     component: AdminLayoutComponent,
     children: [
-      { path: 'admindashboard', component: AdminDashboardComponent },
+      { path: '', component: AdminDashboardComponent },
       { path: 'adminuser', component: AdminUserManagementComponent },
       { path: 'adminproject', component: AdminProjectManagementComponent },
       { path: 'admintask', component: AdminTaskManagementComponent },

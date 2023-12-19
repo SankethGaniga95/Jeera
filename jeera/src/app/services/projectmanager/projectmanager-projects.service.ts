@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProjectService {
-  private apiBaseUrl = 'http://localhost:8080/project';
+  private apiBaseUrl = 'https://jeerabackened.onrender.com/project';
 
   constructor(private http: HttpClient) {}
 

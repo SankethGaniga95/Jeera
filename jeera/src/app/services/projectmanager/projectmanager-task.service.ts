@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProjectmanagerTaskService {
-  private apiBaseUrl = 'http://localhost:8080/task';
+  private apiBaseUrl = 'https://jeerabackened.onrender.com/task';
 
   constructor(private http:HttpClient) { }
 
@@ -15,7 +15,7 @@ export class ProjectmanagerTaskService {
   }
 
   updateTask(existingTask:any):Observable<any>{
-    return this.http.patch(`${this.apiBaseUrl}/tasks/${existingTask.id}`,existingTask);
+    return this.http.patch(`${this.apiBaseUrl}/tasks/${existingTask._id}`,existingTask);
   }
 
   createTasks(taskData:any):Observable<any>{

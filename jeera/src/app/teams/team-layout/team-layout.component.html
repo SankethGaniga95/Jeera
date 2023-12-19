@@ -1,13 +1,45 @@
-<div>
-    <ul>
-        <li><a [routerLink]="['/']">Dashboard</a></li>
-        <li><a [routerLink]="['/teamprojects']">Projects</a></li>
-        <li><a [routerLink]="['/teamtask']">Task</a></li>
-        <li><a [routerLink]="['/teamteam']">Team</a></li>
-        <li><a [routerLink]="['/teamnotifications']">Notifications</a></li>
-    </ul>
+<style>
+    .app-project-layout{
+        display: flex;
+    }
+    .project-sidebar{
+        border: 2px solid rgb(219, 217, 217);
+        width:20%;
+        height: 100vh;
+        margin-left: -10px;
+        padding-top: 10px;
+        
+    }
+    .project-sidebar ul{
+        list-style-type: none;
+    }
+    .project-sidebar li{
+        margin-top: 30px;
+    }
+    .project-sidebar li a{
+        text-decoration: none;
+        font-size: 17px;
+        font-weight: 600;
+    }
+    .components-display{
+        width:80%
+    }
+    
+    </style>
 
-</div>
-<div>
-    <router-outlet></router-outlet>
+
+<div class="app-project-layout">
+    <div class="project-sidebar">
+        <ul>
+            <li><a [routerLink]="['/team-member/']">Dashboard</a></li>
+            <li><a [routerLink]="['/team-member/teamprojects']">Projects</a></li>
+            <li><a [routerLink]="['/team-member/teamtask']">Task</a></li>
+            <li><a [routerLink]="['/team-member/teamteam']">Team</a></li>
+            <li><a [routerLink]="['/team-member/teamnotifications']">Notifications</a></li>
+        </ul>
+    </div>
+    
+    <div class="components-display">
+        <router-outlet></router-outlet>
+    </div>
 </div>

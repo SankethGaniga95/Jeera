@@ -7,20 +7,36 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
-  private apiBaseUrl = 'http://localhost:8080/user';
+  private apiBaseUrl = 'https://jeerabackened.onrender.com/user';
   userRole:string=""
+  private userID:any=""
+  isLoggedIn=localStorage.setItem("loginstatus",JSON.stringify(false))
   successfulLogin: EventEmitter<string> = new EventEmitter<string>();
 
-  // constructor(private http:HttpClient) { }
-
-  // loginuser(logindata:any):Observable<any>{
-  //   return this.http.post(`${this.apiBaseUrl}/login`,logindata);
-  // }
 
   constructor(private http: HttpClient, private router: Router) {}
 
   loginuser(logindata: any): Observable<any> {
     return this.http.post(`${this.apiBaseUrl}/login`, logindata);
+  }
+
+  setLoggedIn(value: boolean): void {
+    localStorage.setItem('isLoggedIn', value.toString());
+  }
+
+  getLoggedIn(): boolean {
+    const storedValue = localStorage.getItem('isLoggedIn');
+    return storedValue ? JSON.parse(storedValue) : false;
+  }
+
+
+  saveID(userid:any){
+    this.userID=userid
+    localStorage.setItem('userId', this.userID)
+  }
+
+  getUserId(): number {
+    return this.userID;
   }
 
   handleSuccessfulLogin(logindata: any): void {

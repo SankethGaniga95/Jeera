@@ -1,4 +1,5 @@
-{
+{ 
+  "Homepage":".",
   "name": "jeera",
   "version": "0.0.0",
   "scripts": {
